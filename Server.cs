@@ -52,9 +52,9 @@ namespace FinalProject
         // Main reference
         private MainProgram main;
 
-        // RSA container
-        private RSACryptoServiceProvider key;
-        private static Hashtable clientKeys;
+        // Security
+        private RSASecurity rsa;
+        private AESSecurity aes;
 
         public MainProgram Main { get => main; set => main = value; }
 
@@ -85,57 +85,61 @@ namespace FinalProject
                     {
                         client = server.AcceptTcpClient();
 
-                        if (MainProgram.Secure)
+                        // Detect if incoming connection is secure
                         {
                             var stream = client.GetStream();
-                            var buffer = 
+                            var bufferSize = client.ReceiveBufferSize;
+
                         }
+
 
                         /* This part is to retrieve the username */
                         // Get incoming stream from client
-                        NetworkStream stream = client.GetStream();
-                        int bufferSize = client.ReceiveBufferSize;
-                        byte[] buffer = new byte[bufferSize];
-                        string username = string.Empty;
-
-                        // Read the stream and store data into buffer
-                        stream.Read(buffer, 0, bufferSize);
-
-                        // Turn the block of data into string
-                        username = Encoding.ASCII.GetString(buffer);
-
-                        // Cut the terminator
-                        username = username.Substring(0, username.IndexOf("</usr>"));
-
-                        // This part is to prevent same usernames
-                        lock (_lock)
                         {
-                            short num = 1;
-                            while (true)
+                            var stream = client.GetStream();
+                            int bufferSize = client.ReceiveBufferSize;
+                            byte[] buffer = new byte[bufferSize];
+                            string username = string.Empty;
+
+                            // Read the stream and store data into buffer
+                            stream.Read(buffer, 0, bufferSize);
+
+                            // Turn the block of data into string
+                            username = Encoding.ASCII.GetString(buffer);
+
+                            // Cut the terminator
+                            username = username.Substring(0, username.IndexOf("</usr>"));
+
+                            // This part is to prevent same usernames
+                            lock (_lock)
                             {
-                                if (clientList.ContainsKey(username))
+                                short num = 1;
+                                while (true)
                                 {
-                                    username += " (" + num + ")";
-                                }
-                                else
-                                {
-                                    break;
+                                    if (clientList.ContainsKey(username))
+                                    {
+                                        username += " (" + num + ")";
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                        // Inform clients about the new client
-                        Broadcast(username + " has joined the chat!");
-                        // Show data in chatlog
-                        Write("<>");
-                        Write("<> " + username + " [" + client.Client.RemoteEndPoint.ToString() + "] connected!");
-                        Write("<>");
-                        // Insert the new client into a hashtable
-                        // Using mutex to stop other threads from accessing it
-                        lock (_lock) clientList.Add(username, client);
+                            // Inform clients about the new client
+                            Broadcast(username + " has joined the chat!");
+                            // Show data in chatlog
+                            Write("<>");
+                            Write("<> " + username + " [" + client.Client.RemoteEndPoint.ToString() + "] connected!");
+                            Write("<>");
+                            // Insert the new client into a hashtable
+                            // Using mutex to stop other threads from accessing it
+                            lock (_lock) clientList.Add(username, client);
 
-                        // Create a new thread to handle clients in separate threads
-                        Thread clientHandler = new Thread(() => ClientHandle(username));
-                        clientHandler.Start();
+                            // Create a new thread to handle clients in separate threads
+                            Thread clientHandler = new Thread(() => ClientHandle(username));
+                            clientHandler.Start();
+                        }
                     }
                 }
             }
@@ -281,14 +285,6 @@ namespace FinalProject
             }
         }
 
-        private void GenerateKey()
-        {
 
-        }
-
-        private void Encrypt(string message)
-        {
-
-        }
     }
 }

@@ -15,8 +15,9 @@ namespace FinalProject
         private TcpClient client;
 
         //Security
-        private AsymetricEncrypt asymetricEncrypt;
-        private SymetricEncrypt symetricEncrypt;
+        private ConnectionMode connectionMode;
+        private RSASecurity asymetricEncrypt;
+        private AESSecurity symetricEncrypt;
 
         public MainProgram Main { get => main; set => main = value; }
 
@@ -33,11 +34,6 @@ namespace FinalProject
                 {
                     // Connect to host
                     client = new TcpClient(ip.ToString(), port);
-                    if (MainProgram.Secure)
-                    {
-                        Write("Establishing secure connection...");
-                        key = new RSACryptoServiceProvider(1024);
-                    }
                     Write("Connected!");
                     Program.running = true;
                     break;
@@ -51,6 +47,22 @@ namespace FinalProject
             {
                 if (client.Connected)
                 {
+                    // If client is secure, tell server that we want secure connection
+                    if (MainProgram.Secure)
+                    {
+                        try
+                        {
+                            // Get Stream and send connection mode
+                            var stream = client.GetStream();
+                            var buffer = Encoding.ASCII.GetBytes("Secure" + '\0');
+                            stream.Write(buffer, 0, buffer.Length);
+                            stream.Flush();
+                        }
+                        catch (Exception)
+                        {
+                            throw;
+                        }
+                    }
                     try
                     {
                         // Get Stream and send the username
@@ -61,11 +73,7 @@ namespace FinalProject
                             stream.Flush();
                         }
 
-                        if (MainProgram.Secure)
-                        {
-                            var stream = client.GetStream();
-                            var buffer = 
-                        }
+                        //todo: Establish secure connection...
 
                         // Create a thread to handle incoming messages
                         Thread clientThread = new Thread(GetMessage);
@@ -167,6 +175,11 @@ namespace FinalProject
             {
                 Thread.Sleep(1000);
             }
+        }
+
+        private void EstablishSecureConnection()
+        {
+
         }
     }
 }

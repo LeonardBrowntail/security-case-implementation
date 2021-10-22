@@ -4,8 +4,14 @@ using System.Windows.Forms;
 
 namespace FinalProject
 {
+    public enum ConnectionMode
+    {
+        Basic, Secure
+    }
+
     public partial class MainProgram : Form
     {
+
         private Server server = null;
         private Client client = null;
         public string stream = string.Empty;

@@ -7,27 +7,21 @@ using System.Security.Cryptography;
 
 namespace FinalProject
 {
-    class AsymetricEncrypt
+    class RSASecurity
     {
         private RSACryptoServiceProvider rsa;
-        private string publicKey;
+        private RSAParameters publicKey;
 
-        public string PublicKey { get => publicKey; }
+        public RSAParameters PublicKey { get => publicKey; }
 
-        public AsymetricEncrypt()
-        {
-            rsa = new RSACryptoServiceProvider(1024);
-            publicKey = rsa.ToXmlString(false);
-        }
-
-        public byte[] RSAEncrypt(byte[] src, string key)
+        public byte[] RSAEncrypt(byte[] src, RSAParameters key)
         {
             try
             {
                 byte[] encryptedData;
                 using (var RSA = rsa)
                 {
-                    RSA.FromXmlString(key);
+                    RSA.ImportParameters(key);
 
                     encryptedData = RSA.Encrypt(src, false);
                 }
@@ -41,14 +35,14 @@ namespace FinalProject
             }
         }
 
-        public byte[] RSADecrypt(byte[] src, string key)
+        public byte[] RSADecrypt(byte[] src, RSAParameters key)
         {
             try
             {
                 byte[] decryptedData;
                 using (var RSA = rsa)
                 {
-                    RSA.FromXmlString(key);  
+                    RSA.ImportParameters(key);  
                     decryptedData = RSA.Decrypt(src, false);
                 }
                 return decryptedData;
