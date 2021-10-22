@@ -1,0 +1,18 @@
+Log 6/30/2021 2:11:17 PM
+-----------------------
+Server started [ 192.168.100.7:8888 ] Waiting for connection...
+-----------------------
+<>
+<> Leo [192.168.100.7:50565] connected!
+<>
+[6/30/2021 2:11:59 PM] Leo: Snape
+-----------------------
+>> Server is turned off
+Error: System.ArgumentOutOfRangeException: Length cannot be less than zero.
+Parameter name: length
+   at System.String.Substring(Int32 startIndex, Int32 length)
+   at FinalProject.Server.ClientHandle(String usr) in C:\Users\LEONARD BRWONTIAL\Documents\Leo's Tasks\College\4th Semester\Network and Computer Architecture\FP\Program\FinalProject\Server.cs:line 198
+-----------------------
+><
+>< Leo Disconnected...
+><

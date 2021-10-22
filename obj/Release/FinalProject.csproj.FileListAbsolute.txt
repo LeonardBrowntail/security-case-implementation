@@ -1,0 +1,10 @@
+C:\Users\LEONARD BRWONTIAL\Documents\Leo's Tasks\College\4th Semester\Network and Computer Architecture\FP\Program\FinalProject\bin\Release\FinalProject.exe.config
+C:\Users\LEONARD BRWONTIAL\Documents\Leo's Tasks\College\4th Semester\Network and Computer Architecture\FP\Program\FinalProject\bin\Release\FinalProject.exe
+C:\Users\LEONARD BRWONTIAL\Documents\Leo's Tasks\College\4th Semester\Network and Computer Architecture\FP\Program\FinalProject\bin\Release\FinalProject.pdb
+C:\Users\LEONARD BRWONTIAL\Documents\Leo's Tasks\College\4th Semester\Network and Computer Architecture\FP\Program\FinalProject\obj\Release\FinalProject.csproj.AssemblyReference.cache
+C:\Users\LEONARD BRWONTIAL\Documents\Leo's Tasks\College\4th Semester\Network and Computer Architecture\FP\Program\FinalProject\obj\Release\FinalProject.MainProgram.resources
+C:\Users\LEONARD BRWONTIAL\Documents\Leo's Tasks\College\4th Semester\Network and Computer Architecture\FP\Program\FinalProject\obj\Release\FinalProject.Properties.Resources.resources
+C:\Users\LEONARD BRWONTIAL\Documents\Leo's Tasks\College\4th Semester\Network and Computer Architecture\FP\Program\FinalProject\obj\Release\FinalProject.csproj.GenerateResource.cache
+C:\Users\LEONARD BRWONTIAL\Documents\Leo's Tasks\College\4th Semester\Network and Computer Architecture\FP\Program\FinalProject\obj\Release\FinalProject.csproj.CoreCompileInputs.cache
+C:\Users\LEONARD BRWONTIAL\Documents\Leo's Tasks\College\4th Semester\Network and Computer Architecture\FP\Program\FinalProject\obj\Release\FinalProject.exe
+C:\Users\LEONARD BRWONTIAL\Documents\Leo's Tasks\College\4th Semester\Network and Computer Architecture\FP\Program\FinalProject\obj\Release\FinalProject.pdb

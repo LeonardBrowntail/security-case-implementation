@@ -1,0 +1,12 @@
+Log 6/29/2021 7:44:03 PM
+Server started [ 192.168.100.7:8888 ] Waiting for connection...
+Leo [192.168.100.7:50268] connected!
+Leo connected, inserted into list
+ClientHandler for Leo created, starting...
+Error: System.IO.IOException: Unable to read data from the transport connection: A blocking operation was interrupted by a call to WSACancelBlockingCall. ---> System.Net.Sockets.SocketException: A blocking operation was interrupted by a call to WSACancelBlockingCall
+   at System.Net.Sockets.Socket.Receive(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags)
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.NetworkStream.Read(Byte[] buffer, Int32 offset, Int32 size)
+   at FinalProject.Server.ClientHandle(String usr) in C:\Users\LEONARD BRWONTIAL\Documents\Leo's Tasks\College\4th Semester\Network and Computer Architecture\FP\Program\FinalProject\Server.cs:line 176
+Leo Disconnected...
