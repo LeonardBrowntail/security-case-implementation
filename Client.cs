@@ -16,8 +16,9 @@ namespace FinalProject
 
         //Security
         private ConnectionMode connectionMode;
-        private RSASecurity asymetricEncrypt;
-        private AESSecurity symetricEncrypt;
+
+        private RSASecurity rsa;
+        private AESSecurity aes;
 
         public MainProgram Main { get => main; set => main = value; }
 
@@ -54,13 +55,23 @@ namespace FinalProject
                         {
                             // Get Stream and send connection mode
                             var stream = client.GetStream();
-                            var buffer = Encoding.ASCII.GetBytes("Secure" + '\0');
+                            byte[] buffer = new byte[1];
+                            buffer[0] = Convert.ToByte(true);
                             stream.Write(buffer, 0, buffer.Length);
                             stream.Flush();
                         }
                         catch (Exception)
                         {
                             throw;
+                        }
+
+                        //todo: Establish secure connection...
+                        {
+                            var stream = client.GetStream();
+                            var size = client.ReceiveBufferSize;
+                            var buffer = new byte[size];
+                            stream.Read(buffer, 0, size);
+                            var str = Encoding.ASCII.GetString(buffer);
                         }
                     }
                     try
@@ -72,8 +83,6 @@ namespace FinalProject
                             stream.Write(buffer, 0, buffer.Length);
                             stream.Flush();
                         }
-
-                        //todo: Establish secure connection...
 
                         // Create a thread to handle incoming messages
                         Thread clientThread = new Thread(GetMessage);
@@ -175,11 +184,6 @@ namespace FinalProject
             {
                 Thread.Sleep(1000);
             }
-        }
-
-        private void EstablishSecureConnection()
-        {
-
         }
     }
 }

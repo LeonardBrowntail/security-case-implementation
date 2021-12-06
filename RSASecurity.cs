@@ -7,12 +7,12 @@ using System.Security.Cryptography;
 
 namespace FinalProject
 {
-    class RSASecurity
+    internal class RSASecurity
     {
         private RSACryptoServiceProvider rsa;
-        private RSAParameters publicKey;
+        private RSAParameters foreignPublicKey;
 
-        public RSAParameters PublicKey { get => publicKey; }
+        public RSAParameters PublicKey { get => foreignPublicKey; }
 
         public byte[] RSAEncrypt(byte[] src, RSAParameters key)
         {
@@ -42,7 +42,7 @@ namespace FinalProject
                 byte[] decryptedData;
                 using (var RSA = rsa)
                 {
-                    RSA.ImportParameters(key);  
+                    RSA.ImportParameters(key);
                     decryptedData = RSA.Decrypt(src, false);
                 }
                 return decryptedData;
@@ -53,6 +53,11 @@ namespace FinalProject
 
                 return null;
             }
+        }
+
+        public string GetPublicKey()
+        {
+            return rsa.ToXmlString(false);
         }
     }
 }

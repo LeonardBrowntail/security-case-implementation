@@ -1,0 +1,9 @@
+Log 12/6/2021 11:07:23 AM
+-----------------------
+Server started [ 192.168.80.225:8888 ] Waiting for connection...
+-----------------------
+Error :Length cannot be less than zero.
+Parameter name: length
+-----------------------
+>> Server is turned off
+-----------------------

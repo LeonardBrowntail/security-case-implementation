@@ -11,6 +11,7 @@ using System.Collections.Generic;
 namespace FinalProject
 {
     /* Logger class to handle server logging */
+
     public static class Logger
     {
         private static readonly object _log_lock = new object();
@@ -54,6 +55,7 @@ namespace FinalProject
 
         // Security
         private RSASecurity rsa;
+
         private AESSecurity aes;
 
         public MainProgram Main { get => main; set => main = value; }
@@ -61,6 +63,9 @@ namespace FinalProject
         // Create a server with local addresss
         private Server()
         {
+            rsa = new RSASecurity();
+            aes = new AESSecurity();
+            aes.GenerateAESKey();
             server = new TcpListener(IPAddress.Parse(Program.localAddress), 8888);
             clientList = new Hashtable();
         }
@@ -84,14 +89,22 @@ namespace FinalProject
                     if (server.Pending())
                     {
                         client = server.AcceptTcpClient();
-
+                        var secureConnection = false;
                         // Detect if incoming connection is secure
                         {
                             var stream = client.GetStream();
-                            var bufferSize = client.ReceiveBufferSize;
+                            var buffer = new byte[client.ReceiveBufferSize];
 
+                            stream.Read(buffer, 0, client.ReceiveBufferSize);
+                            secureConnection = Convert.ToBoolean(buffer[0]);
                         }
 
+                        if (secureConnection)
+                        {
+                            var key = rsa.GetPublicKey();
+                            var stream = client.GetStream();
+                            stream.Write(Encoding.ASCII.GetBytes(key), 0, key.Length);
+                        }
 
                         /* This part is to retrieve the username */
                         // Get incoming stream from client
@@ -284,7 +297,5 @@ namespace FinalProject
                 Thread.Sleep(1000);
             }
         }
-
-
     }
 }
