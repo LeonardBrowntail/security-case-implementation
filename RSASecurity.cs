@@ -59,5 +59,10 @@ namespace FinalProject
         {
             return rsa.ToXmlString(false);
         }
+
+        public void AssignForeignKey(string key)
+        {
+            foreignPublicKey =
+        }
     }
 }

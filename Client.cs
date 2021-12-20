@@ -72,6 +72,7 @@ namespace FinalProject
                             var buffer = new byte[size];
                             stream.Read(buffer, 0, size);
                             var str = Encoding.ASCII.GetString(buffer);
+                            rsa.
                         }
                     }
                     try
